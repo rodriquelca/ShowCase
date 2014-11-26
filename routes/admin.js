@@ -58,10 +58,15 @@ router.post('/test', function(req, res) {
             },
             authorization = 'Basic '+base64;
 
-        curl('http://pmr2.local', '/workflow/oauth2/token','POST', authorization,data);
-        //var base64 = new Buffer(base64, 'base64').toString('ascii');
-        console.log(base64);
-        res.send("finish");
+        curl.post('http://pmr2.local', '/workflow/oauth2/token', authorization, data, function(response, body){
+            if (response.statusCode == 200) {
+                result.processmaker = JSON.parse(body);
+                db.collection('oauth').update({_id: new ObjectID(req.body.id)}, {$set:result}, {safe:true, multi:false},
+                    function(err, result){}
+                );
+            }
+        });
+        res.send();
     });
 });
 
