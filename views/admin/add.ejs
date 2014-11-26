@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="/admin/add" method="post">
+        <table>
+            <tr>
+                <td>User</td>
+                <td><input name="user" type="text"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input name="password" type="text"></td>
+            </tr>
+            <tr>
+                <td>Client ID</td>
+                <td><input name="clientId" type="text"></td>
+            </tr>
+            <tr>
+                <td>Client Secret</td>
+                <td><input name="clientSecret" type="text"></td>
+            </tr>
+
+        </table>
+        <input type="submit" value="Save">
+    </form>
+  </body>
+</html>

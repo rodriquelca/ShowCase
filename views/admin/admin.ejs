@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %><a href ="/admin/add"> + </a></h1>
+    <table>
+        <tr>
+            <td>User PM</td>
+            <td>Password</td>
+            <td>Client ID</td>
+            <td>Client Secret</td>
+            <td></td>
+        </tr>
+        <% oauths.forEach(function(oauth) { %>
+        <tr>
+            <td><%= oauth.user %></td>
+            <td><%= oauth.password %></td>
+            <td><%= oauth.clientId %></td>
+            <td><%= oauth.clientSecret %></td>
+            <td>
+                <form action="/admin/test" method="post">
+                    <input name="id" type="hidden" value="<%= oauth._id %>">
+                    <input type="submit" value="Test">
+                </form>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+  </body>
+</html>
