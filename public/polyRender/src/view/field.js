@@ -1,7 +1,6 @@
 (function(app) {
 
-    // Dictionary of alerts
-    var _field = {};
+    //var _field = {};
 
     var _field = {
         init: function() {
@@ -17,13 +16,11 @@
             var i;
             //here create field
             for(i = 0; i < app.config.componentsLink.length; i += 1) {
-                var input = document.createElement('paper-input');
+                var input = document.createElement(app.config.componentsLink[i].component);
                 var container = document.querySelector(app.$rootEl.selector);
                 container.appendChild(input);
 
             }
-
-
 
 
             console.log('create our first field');
