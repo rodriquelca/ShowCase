@@ -59,7 +59,7 @@ router.post('/test', function(req, res) {
             },
             authorization = 'Basic '+base64;
 
-        curl.post('http://192.168.0.249:8080', '/workflow/oauth2/token', authorization, data, function(response, body){
+        curl.post('http://173.244.64.117:8080', '/workflow/oauth2/token', authorization, data, function(response, body){
             if (response.statusCode == 200) {
                 result = JSON.parse(body);
                 db.collection('oauth').update({_id: new ObjectID(req.body.id)}, {$set:result}, {safe:true, multi:false},

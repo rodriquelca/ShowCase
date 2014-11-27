@@ -30,22 +30,42 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Auth-Token, Origin, Authorization");
+    if (req.method === 'OPTIONS') {
+        res.statusCode = 204;
+        return res.end();
+    } else {
+        return next();
+    }
+});
+
+app.use('/', function(req, res, next) {
+    //console.log(req.headers.authorization);
+
+    var clientId = 'FKIZYOFHJWJJNXMMUTUOFZAXFTKJUQQH';
+    //var auth = req.headers.authorization.split(" ");
+    io.on('connection', function(socket){
+        socket.on(clientId, function(msg){
+            io.emit(clientId, msg);
+        });
+        socket.broadcast.emit(clientId);
+
+        socket.on('disconnect', function () {
+            io.sockets.emit('user disconnected');
+        });
+    });
+    req.io = io;
+    req.f = clientId;
+    next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/admin', admin);
-
-app.all('/', function(req, res, next) {
-    //console.log(req.headers.authorization);
-    var auth = req.headers.authorization.split(" ");
-    next();
-});
-
-app.all('/api/*', function(req, res, next) {
-    //console.log(req.headers.authorization);
-    var auth = req.headers.authorization.split(" ");
-    next();
-});
-
 app.use('/api/1.0', api);
 
 // catch 404 and forward to error handler
@@ -81,10 +101,6 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-app.listen(1314, function(){
-    console.log("Server start");
-});
-
-http.listen(1313, function(){
+http.listen(9000, function(){
     console.log('listening on *:1313');
 });
