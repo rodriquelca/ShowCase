@@ -5,7 +5,7 @@
     <title>Form render</title>
     <!--polimer library-->
     <!--<link rel="import" href="bower_components/polymer/polymer.html">-->
-
+    <link type="text/css" href="css/style.css" rel="stylesheet" />
 </head>
 <body>
     <h1>Poly (Form Render)</h1>
@@ -22,15 +22,88 @@
     <!--aqui inicializamos la app-->
     <script src="src/app.js"></script>
     <script src="src/config.js"></script>
-    <script src="src/view/field.js"></script>
+    <script src="src/paper_element/input.js"></script>
+    <script src="src/paper_element/radio_button.js"></script>
+    <script src="src/paper_element/radio_group.js"></script>
+    <script src="src/paper_element/checkbox.js"></script>
+    <script src="src/paper_element/checkbox_group.js"></script>
+    <script src="src/paper_element/combobox.js"></script>
     <script>
+
+
         var app = POLY.App.init({
             el: "#container"
         });
 
-        //load fields
+        //combobox
+        POLY.App.combobox.init({
+            options:[
+                {
+                    label: 'uno'
+                },
+                {
+                    label: 'dos'
+                },
+            ]
+        });
 
-        POLY.App.field.init();
+        //load fields
+        POLY.App.input.init({
+            label: 'Standar',
+            floatingLabel: false,
+            disabled: false
+        });
+        //floating
+        POLY.App.input.init({
+            label: 'floating',
+            floatingLabel: true,
+            disabled: false
+        });
+        //disabled
+        POLY.App.input.init({
+            label: 'disabled',
+            floatingLabel: true,
+            disabled: true
+        });
+
+        //simple radio button
+//        POLY.App.radioButton.init({
+//        });
+
+//        radio group
+
+        POLY.App.radioGroup.init({
+            label: 'Shoes kynd',
+            selected: 'adidas',
+            name:'kind',
+            options: [
+                {
+                    label: 'Nike',
+                    name: 'nike'
+
+                },
+                {
+                    label: 'Adidas',
+                    name: 'adidas'
+                }
+            ]
+        });
+
+//        checkbox
+        POLY.App.checkGroup.init({
+                label:'hola'
+                });
+
+
+        POLY.App.checkGroup.init({
+            label:'asdfasdf'
+        });
+        //        POLY.App.checkbox.init({
+        //
+        //        });
+
+
+
 
     </script>
 </body>

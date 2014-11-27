@@ -4,6 +4,7 @@
     app.augment("config", {
         serverUrl: 'rodrigo.quelca3.pmos.colosa.net',
         siteUrl: '../../site',
+        componentPrefix: 'bower_components',
         componentsLink: [
             {
                 component: 'paper-input',
