@@ -55,9 +55,12 @@ POLY.App = (function() {
          */
         init: function (opts) {
             _app = _app || _.extend(this, new App(opts));
-
             console.log(_app);
+            _app.addImportLink(_app.config.componentPrefix + '/polymer/polymer.html');
+            _app.addImportLink(_app.config.componentPrefix + '/core-label/core-label.html');
+            _app.addImportLink(_app.config.componentPrefix + '/font-roboto/roboto.html');
             console.log('init poly app');
+
         },
 
         augment: function(name, obj, init) {
@@ -69,6 +72,18 @@ POLY.App = (function() {
             }
         },
 
+        addImportLink: function(url) {
+            var link = document.createElement('link');
+            link.rel = 'import';
+            link.href = url;
+            //link.onload = function(e) {
+            //    var post = this.import.querySelector('#blog-post');
+            //
+            //    var container = document.querySelector('#container');
+            //    container.appendChild(post.cloneNode(true));
+            //};
+            document.head.appendChild(link);
+        },
         /**
          * Logs in this app.
          *
