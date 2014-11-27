@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <title>List Imbox</title>
+
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <script src="../webcomponentsjs/webcomponents.js"></script>
+
+    <!-- components -->
+    <link rel="import" href="../polymer/polymer.html">
+    <link rel="import" href="cases-list.html">
+      
+    <link rel="import" href="../ujiro-card-master/ujiro-card.html"/>
+    <link href="../paper-button/paper-button.html" rel="import">
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      demo-list {
+        height: 100%;
+      }
+    </style>
+    
+
+  </head>
+
+  <body fullbleed unresolved>
+
+    <demo-list></demo-list>
+
+
+    <polymer-element name="demo-list">
+      <template>
+        <style>
+          #container {
+            height: 100%;
+          }
+
+          .top,
+          .bottom {
+            height: 60px;
+            background: #03a9f4;
+            color: white;
+            text-align: center;
+          }
+
+          .inner-content {
+            position: relative;
+          }
+
+          #list {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+          }
+
+          .item {
+            color: #444444;
+            height: 80px;
+            border-bottom: 1px solid #ccc;
+            padding: 20px 5px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+          }
+
+          .item i {
+            font-size: 14px;
+            color: #999999;
+          }
+
+          .selected {
+            background: #ebebeb;
+          }
+        </style>
+        <style>
+            ujiro-card {
+              margin: 4px;
+              width: 200px;
+            }
+            .content {
+              background-color: #eeeeee;
+              padding: 20px;
+              font-family: 'RobotoDraft', sans-serif;
+              font-weight: 300;
+              color: #555;
+            }
+            .media {
+              line-height: 0;
+            }
+            .media img {
+              height: auto;
+              width: 200px;
+            }
+            .text {
+              padding: 16px;
+              font-size: 13px;
+            }
+            ujiro-card:first-child > .text {
+              font-size: 12px;
+            }
+            span {
+              font-weight: 400;
+              color: #999;
+            }
+            p {
+              margin: 0.2em 0 0 0;
+            }
+            footer {
+              margin-top: 20px;
+            }
+            footer > div {
+              display: inline-block;
+              font-weight: 400;
+            }
+            .share {
+              color: blue;
+            }
+            .more {
+              color: #999;
+              margin-left: 10px;
+            }
+            header {
+              margin: -72px 0 24px 0;
+            }
+            header h2 {
+              color: #ededed;
+              font-size: 24px;
+              line-height: 26px;
+              font-weight: 300;
+            }
+          </style>
+
+        <div layout vertical id="container">
+
+          <!-- main content -->
+          <div flex layout vertical class="inner-content">
+            <simple-list id="list" data="{{data}}" height="50">
+                <template>
+                <ujiro-card>
+                    <div class="text">
+                        <span>
+                            <b>Case :{{model.name}}</b>
+                        </span>
+                        <br>
+                        <span>
+                            <b>Process :{{model.process}}</b>
+                        </span>
+                        <p>
+                            Task: {{model.task}}<br>
+                            Due Date: {{model.duedate}}
+                        </p>
+                        <footer>
+                            <paper-button class="share" raised class="colored">Open</paper-button>
+                            <paper-button class="more" raised class="colored">View</paper-button>
+                        </footer>
+                    </div>
+                </ujiro-card>
+                </template>
+            </simple-list>
+          </div>
+
+        </div>
+
+      </template>
+
+      <script>
+        Polymer({
+
+          //
+          created: function () {
+            this._boundOnActivated = this.onActivate.bind(this);
+          },
+
+          //
+          ready: function () {
+            this.data = this.loadData();
+
+            this.$.list.addEventListener('core-activate', this._boundOnActivated);
+            window.list = this.$.list;
+          },
+
+          //
+          loadData: function () {
+            var data = [];
+
+            for (var i = 1, len = 15; i < len; i++) {
+              data.push({
+                id: i,
+                name : 'name'+i,
+                case: 'case'+i,
+                process: 'process'+i,
+                task: 'task'+i,
+                duedate: 'procduedateess'+i
+              });
+            }
+
+            return data;
+          },
+
+          //
+          onActivate: function (e) {
+            var obj = e.detail.data;
+
+            console.log('activated: ', obj);
+          }
+
+        });
+      </script>
+    </polymer-element>
+
+  </body>
+
+</html>

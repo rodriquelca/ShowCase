@@ -1,0 +1,119 @@
+
+<!doctype html>
+
+<html>
+<head>
+
+    <title>List Cases Draft</title>
+
+    <script src="../webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="../core-ajax/core-ajax.html">
+        
+    <link rel="import" href="../ujiro-card-master/ujiro-card.html"/>
+    <link href="../paper-button/paper-button.html" rel="import">
+
+</head>
+<body>
+    <style>
+        ujiro-card {
+          margin: 4px;
+          width: 200px;
+        }
+        .content {
+          background-color: #eeeeee;
+          padding: 20px;
+          font-family: 'RobotoDraft', sans-serif;
+          font-weight: 300;
+          color: #555;
+        }
+        .media {
+          line-height: 0;
+        }
+        .media img {
+          height: auto;
+          width: 200px;
+        }
+        .text {
+          padding: 16px;
+          font-size: 13px;
+        }
+        ujiro-card:first-child > .text {
+          font-size: 12px;
+        }
+        span {
+          font-weight: 400;
+          color: #999;
+        }
+        p {
+          margin: 0.2em 0 0 0;
+        }
+        footer {
+          margin-top: 20px;
+        }
+        footer > div {
+          display: inline-block;
+          font-weight: 400;
+        }
+        .share {
+          color: blue;
+        }
+        .more {
+          color: #999;
+          margin-left: 10px;
+        }
+        header {
+          margin: -72px 0 24px 0;
+        }
+        header h2 {
+          color: #ededed;
+          font-size: 24px;
+          line-height: 26px;
+          font-weight: 300;
+        }
+      </style>
+    <core-ajax
+        id="ajax"
+        auto url="//192.168.0.172:9000/api/1.0/workflow/cases/draft"
+        headers='{"Authorization": "Bearer 338063ca72f3392b0e2544354e531fc7127e6b9b"}'>
+    </core-ajax>
+
+    <template repeat="{{response}}">
+        <ujiro-card>
+            <div class="text">
+                <span>
+                    <b>Task Title :{{app_tas_title}}</b>
+                </span>
+                <br>
+                <span>
+                    <b>Process :{{app_pro_title}}</b>
+                </span>
+                <p>
+                    Task: {{app_title}}<br>
+                    Due Date: {{app_update_date}}
+                </p>
+                <footer>
+                    <paper-button class="share" raised class="colored">Open</paper-button>
+                    <paper-button class="more" raised class="colored">View</paper-button>
+                </footer>
+            </div>
+        </ujiro-card>
+  </template>
+
+  <script>
+    document.addEventListener('polymer-ready', function() {
+
+      var ajax = document.querySelector("core-ajax");
+      
+      ajax.addEventListener("core-response", 
+        function(e) {
+            console.log('response', JSON.parse(e.detail.response));
+            document.querySelector('template').model = {
+                response: JSON.parse(e.detail.response)
+            };
+        }
+      );
+    });
+  </script>
+
+</body>
+</html>
