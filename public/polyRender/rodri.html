@@ -6,13 +6,28 @@
     <!--polimer library-->
     <!--<link rel="import" href="bower_components/polymer/polymer.html">-->
     <link type="text/css" href="css/style.css" rel="stylesheet" />
+
 </head>
 <body>
+<link rel="import" href="bower_components/polymer/polymer.html">
     <h1>Poly (Form Render)</h1>
     <!--aqui se armara el formulario-->
     formulario básico
     <br/>
-    <div id="container"></div>
+    <form onsubmit="return validate(this)" action="/test">
+
+        <div id="container">
+            <!--<core-ajax auto url="//gdata.youtube.com/feeds/api/videos/"-->
+            <!--params='{"alt":"json", "q":"chrome"}'-->
+            <!--handleAs="json"></core-ajax>-->
+
+        </div>
+        <input type="submit">
+    </form>
+
+    <link-button></link-button>
+
+
 
 
 
@@ -20,7 +35,7 @@
     <script src="../vendors/lodash.js"></script>
 
     <!--aqui inicializamos la app-->
-    <script src="src/app.js"></script>
+        <script src="src/app.js"></script>
     <script src="src/config.js"></script>
     <script src="src/paper_element/input.js"></script>
     <script src="src/paper_element/radio_button.js"></script>
@@ -28,83 +43,95 @@
     <script src="src/paper_element/checkbox.js"></script>
     <script src="src/paper_element/checkbox_group.js"></script>
     <script src="src/paper_element/combobox.js"></script>
+    <script src="src/paper_element/button.js"></script>
     <script>
 
 
         var app = POLY.App.init({
             el: "#container"
         });
-
-        //combobox
-        POLY.App.combobox.init({
-            options:[
-                {
-                    label: 'uno'
-                },
-                {
-                    label: 'dos'
-                },
-            ]
-        });
+        function validate(form) {
+            console.log(form.doisubmit.validity.valid);
+            // This should return false if <input is="test-element"> contains alpha chars. It always returns true.
+//            return form.doisubmit.validity.valid;
+        }
+//        //combobox
+//        POLY.App.combobox.init({
+//            options:[
+//                {
+//                    label: 'uno'
+//                },
+//                {
+//                    label: 'dos'
+//                }
+//            ]
+//        });
 
         //load fields
         POLY.App.input.init({
+            name: 'firstName',
             label: 'Standar',
             floatingLabel: false,
             disabled: false
         });
-        //floating
-        POLY.App.input.init({
-            label: 'floating',
-            floatingLabel: true,
-            disabled: false
+        POLY.App.button.init({
+            label: 'Submit',
+            'callback': 'POLY.App.submit(this)'
+//            disabled: false
         });
-        //disabled
-        POLY.App.input.init({
-            label: 'disabled',
-            floatingLabel: true,
-            disabled: true
-        });
-
-        //simple radio button
-//        POLY.App.radioButton.init({
+//        //floating
+//        POLY.App.input.init({
+//            label: 'floating',
+//            floatingLabel: true,
+//            disabled: false
 //        });
-
-//        radio group
-
-        POLY.App.radioGroup.init({
-            label: 'Shoes kynd',
-            selected: 'adidas',
-            name:'kind',
-            options: [
-                {
-                    label: 'Nike',
-                    name: 'nike'
-
-                },
-                {
-                    label: 'Adidas',
-                    name: 'adidas'
-                }
-            ]
-        });
-
-//        checkbox
-        POLY.App.checkGroup.init({
-                label:'hola'
-                });
-
-
-        POLY.App.checkGroup.init({
-            label:'asdfasdf'
-        });
-        //        POLY.App.checkbox.init({
-        //
-        //        });
+//        //disabled
+//        POLY.App.input.init({
+//            label: 'disabled',
+//            floatingLabel: true,
+//            disabled: true
+//        });
+//
+//        //simple radio button
+////        POLY.App.radioButton.init({
+////        });
+//
+////        radio group
+//
+//        POLY.App.radioGroup.init({
+//            label: 'Shoes kynd',
+//            selected: 'adidas',
+//            name:'kind',
+//            options: [
+//                {
+//                    label: 'Nike',
+//                    name: 'nike'
+//
+//                },
+//                {
+//                    label: 'Adidas',
+//                    name: 'adidas'
+//                }
+//            ]
+//        });
+//
+////        checkbox
+//        POLY.App.checkGroup.init({
+//                label:'hola'
+//                });
+//
+//
+//        POLY.App.checkGroup.init({
+//            label:'asdfasdf'
+//        });
+//                POLY.App.checkbox.init({
+//
+//                });
 
 
 
 
     </script>
+
 </body>
 </html>

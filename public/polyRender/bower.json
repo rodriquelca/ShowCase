@@ -30,7 +30,9 @@
         "core-label": "Polymer/core-label#~0.5.1",
         "paper-checkbox": "Polymer/paper-checkbox#~0.5.1",
         "paper-dropdown-menu": "Polymer/paper-dropdown-menu#~0.5.1",
-        "paper-dropdown": "Polymer/paper-dropdown#~0.5.1"
+        "paper-dropdown": "Polymer/paper-dropdown#~0.5.1",
+        "core-localstorage": "Polymer/core-localstorage#~0.5.1",
+        "core-ajax": "Polymer/core-ajax#~0.5.1"
     }
 
 }

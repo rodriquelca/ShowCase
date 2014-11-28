@@ -1,0 +1,16 @@
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<polymer-element name="link-button" >
+    <template>
+        <paper-button raisedButton id="test" class="colored"
+                      label="Click" link="http://twitter.com"
+                      on-click="{{ goLink }}">
+        </paper-button>
+    </template>
+    <script>
+        Polymer('link-button', {
+            goLink: function(e) {
+                window.location.href = e.target.getAttribute('link');
+            }
+        })
+    </script>
+</polymer-element>

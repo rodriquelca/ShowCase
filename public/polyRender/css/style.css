@@ -107,3 +107,23 @@ paper-checkbox.blue::shadow #checkbox.checked {
     border: 1px solid #0f9d58;
     background-color: #b7e1cd;
 }
+paper-button.colored {
+    color: #4285f4;
+}
+
+paper-button[raised].colored {
+    background: #4285f4;
+    color: #fff;
+}
+
+paper-button.custom > core-icon {
+    margin-right: 4px;
+}
+
+paper-button.hover:hover {
+    background: #eee;
+}
+
+paper-button.blue-ripple::shadow #ripple {
+    color: #4285f4;
+}

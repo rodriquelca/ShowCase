@@ -55,11 +55,38 @@ POLY.App = (function() {
          */
         init: function (opts) {
             _app = _app || _.extend(this, new App(opts));
+
+
+
             console.log(_app);
-            _app.addImportLink(_app.config.componentPrefix + '/polymer/polymer.html');
+            //_app.addImportLink(_app.config.componentPrefix + '/polymer/polymer.html');
             _app.addImportLink(_app.config.componentPrefix + '/core-label/core-label.html');
+            _app.addImportLink(_app.config.componentPrefix + '/core-localstorage/core-localstorage.html');
             _app.addImportLink(_app.config.componentPrefix + '/font-roboto/roboto.html');
-            console.log('init poly app');
+            _app.addImportLink(_app.config.componentPrefix + '/core-ajax/core-ajax.html');
+
+            //console.log('init poly app');
+            container = document.querySelector(_app.$rootEl.selector);
+            var core  =  document.createElement('core-ajax');
+            var att = document.createAttribute("auto");
+            core.setAttributeNode(att);
+            var att = document.createAttribute("url");
+            att.value = "//gdata.youtube.com/feeds/api/videos/";
+            core.setAttributeNode(att);
+
+            var att = document.createAttribute("params");
+            att.value = '{"alt":"json", "q":"chrome"}';
+            core.setAttributeNode(att);
+
+            var att = document.createAttribute("on-core-response");
+            att.value = '{{handleResponse}}';
+            core.setAttributeNode(att);
+
+            //var att = document.createAttribute("headers");
+            //att.value = '{"X-Requested-With": "XMLHttpRequest"} ';
+            //core.setAttributeNode(att);
+
+            container.appendChild(core);
 
         },
 
@@ -83,6 +110,7 @@ POLY.App = (function() {
             //    container.appendChild(post.cloneNode(true));
             //};
             document.head.appendChild(link);
+
         },
         /**
          * Logs in this app.
@@ -96,6 +124,21 @@ POLY.App = (function() {
         },
         logout: function (callbacks, clear) {
 
+        },
+        submit: function (obj) {
+            alert('submit');
+            var ajax = document.querySelector('core-ajax');
+            //console.log(obj);
+            //console.log(ajax);
+            var form = document.getElementById('container');
+            console.log(form.children);
+            // Respond to events it fires.
+            ajax.addEventListener('core-response', function(e) {
+                console.log(this.response);
+            });
+            ajax.url = 'face';
+
+            ajax.go(); // Call its API methods.
         }
     };
 }());
