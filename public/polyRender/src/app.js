@@ -5,6 +5,7 @@ var POLY = POLY || {};
 
 POLY.App = (function() {
     var _app,
+        app_uid,
         _modules = {};
     var _make$ = function(selector) {
         return selector instanceof $ ? selector : $(selector);
@@ -61,6 +62,9 @@ POLY.App = (function() {
             _app.addImportLink(_app.config.componentPrefix + '/font-roboto/roboto.html');
             console.log('init poly app');
 
+        },
+        setAppUid : function (app_uid) {
+            this.app_uid = app_uid;
         },
 
         augment: function(name, obj, init) {

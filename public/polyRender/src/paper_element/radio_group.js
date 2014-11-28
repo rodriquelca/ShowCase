@@ -53,4 +53,4 @@
         }
     };
     app.augment("radioGroup", _radiogroup, false);
-})(POLY.App);
+})(parent.POLY.App);

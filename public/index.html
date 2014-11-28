@@ -18,6 +18,12 @@
     <link rel="import" href="polyRender/bower_components/core-menu/core-submenu.html">
     <link rel="import" href="polyRender/bower_components/paper-icon-button/paper-icon-button.html">
     <link rel="import" href="polyRender/bower_components/paper-fab/paper-fab.html">
+      
+      
+    <script src="vendors/zepto.js"></script>
+    <script src="vendors/lodash.js"></script>
+    <script src="polyRender/src/app.js"></script>
+    <script src="polyRender/src/config.js"></script>
 
     <style>
 
@@ -42,13 +48,20 @@
     <sampler-scaffold label="ProcessMaker Show Cases" fit>
 
         <core-item label="New Case" tag="cases-list" url="polyRender/bower_components/cases-list/newCase.html"></core-item>
-        <core-item label="Inbox" tag="cases-list" url="polyRender/bower_components/cases-list/inbox.html"></core-item>
+        <core-item label="Inbox" tag="cases-list" url="polyRender/bower_components/cases-list/inbox.html?app_uid=2342342"></core-item>
         <core-item label="Draft" tag="cases-list" url="polyRender/bower_components/cases-list/draft.html"></core-item>
         <core-item label="Participated" tag="cases-list" url="polyRender/bower_components/cases-list/participated.html"></core-item>
         <core-item label="Unassigned" tag="cases-list" url="polyRender/bower_components/cases-list/unassigned.html"></core-item>
         <core-item label="Paused" tag="cases-list" url="polyRender/bower_components/cases-list/paused.html"></core-item>
+        <core-item label="test" tag="cases-list" url="polyRender/rodri.html:marco"></core-item>
+        <core-item icon="polymer" label="Data Binding" ><a href="polyRender/rodri.html?1337"></a></core-item>
 
     </sampler-scaffold>
+    <script>
+      var app = POLY.App.init({
+          el: "#container"
+      });
+    </script>
   </body>
 
 </html>

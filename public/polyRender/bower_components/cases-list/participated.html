@@ -9,6 +9,11 @@
     <link rel="import" href="../core-ajax/core-ajax.html">
     <link href="../paper-button/paper-button.html" rel="import">
 
+    <!--<script src="../../../vendors/zepto.js"></script>-->
+    <!--<script src="../../../vendors/lodash.js"></script>-->
+    <!--<script src="../../src/app.js"></script>-->
+    <!--<script src="../../src/config.js"></script>-->
+
   <style>
     body {
       font-family: 'Roboto 2', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -32,7 +37,7 @@
   <core-ajax
         id="ajax"
         auto url="//192.168.0.172:9000/api/1.0/workflow/cases/participated"
-        headers='{"Authorization": "Bearer 9b63c73017780226cf72024a5440f6b02120189c"}'>
+        headers='{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"}'>
     </core-ajax>
   <template>
 
@@ -191,6 +196,7 @@
 
   </template>
   <script>
+    
     var data = [];
     document.addEventListener('polymer-ready', function() {
 
@@ -214,10 +220,11 @@
     Polymer('cases-partipated', {
     
         page: 0,
-        selectedCase: null,
+        selectedAlbum: null,
         transition: function(e) {
           if (this.page === 0 && e.target.templateInstance.model.item) {
             this.selectedAlbum = e.target.templateInstance.model.item;
+            parent.POLY.App.setAppUid('marcooo');
             this.page = 1;
           } else {
             this.page = 0;

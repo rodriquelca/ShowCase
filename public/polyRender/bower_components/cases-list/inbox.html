@@ -13,6 +13,7 @@
       
     <link rel="import" href="../ujiro-card-master/ujiro-card.html"/>
     <link href="../paper-button/paper-button.html" rel="import">
+    <link rel="import" href="../paper-input/paper-input.html">
 
     <style>
       html,
@@ -21,20 +22,19 @@
         margin: 0;
       }
 
-      demo-list {
+      cases-inbox {
         height: 100%;
       }
     </style>
-    
 
   </head>
 
   <body fullbleed unresolved>
 
-    <demo-list></demo-list>
+    <cases-inbox></cases-inbox>
 
 
-    <polymer-element name="demo-list">
+    <polymer-element name="cases-inbox" attributes="">
       <template>
         <style>
           #container {
@@ -139,6 +139,13 @@
           </style>
 
         <div layout vertical id="container">
+      <!--    <ul>-->
+      <!--      -->
+      <!--  <li><code>pathArg1 = {{app_uid}}</code></li>-->
+      <!--  <li><code>queryParam1 = {{queryParam1}}</code></li>-->
+      <!--</ul>-->
+          <!--<paper-input id="pi"></paper-input>-->
+          <paper-input floatingLabel label="Search" value="{{city}}" id="search"></paper-input>
 
           <!-- main content -->
           <div flex layout vertical class="inner-content">
@@ -172,6 +179,7 @@
       </template>
 
       <script>
+        
         Polymer({
 
           //
@@ -212,6 +220,10 @@
             console.log('activated: ', obj);
           }
 
+        });
+        
+        document.querySelector('paper-input').addEventListener('change', function(event) {
+          console.log(event.target.value);
         });
       </script>
     </polymer-element>
