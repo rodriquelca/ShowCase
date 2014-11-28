@@ -1,10 +1,13 @@
 <!doctype html>
 <html>
 <head>
-  <title>List Cases Participated</title>
+    <title>List Cases Participated</title>
 
-  <script src="../webcomponentsjs/webcomponents.js"></script>
-  <link href="../core-animated-pages/core-animated-pages.html" rel="import">
+    <script src="../webcomponentsjs/webcomponents.js"></script>
+    <link href="../core-animated-pages/core-animated-pages.html" rel="import">
+
+    <link rel="import" href="../core-ajax/core-ajax.html">
+    <link href="../paper-button/paper-button.html" rel="import">
 
   <style>
     body {
@@ -26,6 +29,11 @@
 <body>
 
   <polymer-element name="cases-partipated">
+  <core-ajax
+        id="ajax"
+        auto url="//192.168.0.172:9000/api/1.0/workflow/cases/participated"
+        headers='{"Authorization": "Bearer 9b63c73017780226cf72024a5440f6b02120189c"}'>
+    </core-ajax>
   <template>
 
     <style>
@@ -63,7 +71,7 @@
       }
 
       #details {
-        padding: 200px 10% 0;
+        padding: 50px 10% 0;
       }
 
       .card {
@@ -77,6 +85,7 @@
 
       .card-left {
         width: 400px;
+        padding: 20px;
       }
 
       .card-right {
@@ -98,6 +107,7 @@
               font-size: 13px;
             }
     </style>
+    
 
     <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}">
 
@@ -108,24 +118,24 @@
           <template repeat="{{items as item}}">
 
             <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{selectedAlbum === item }}">
-                <div class="chip-top" style="background:{{item.color}};" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{selectedAlbum === item}}">
+                <div class="chip-top" style="background:#E0ECF8;" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{selectedAlbum === item}}">
                     <div class="text">
                         <span>
-                            <b>Task Title :{{app_tas_title}}</b>
+                            <b>Task Title :{{item.app_tas_title}}</b>
                         </span>
                         <br>
                         <span>
-                            <b>Process :{{app_pro_title}}</b>
+                            <b>Process :{{item.app_pro_title}}</b>
                         </span>
                         <p>
-                            Task: {{app_title}}<br>
-                            Due Date: {{app_update_date}}
+                            Task: {{item.app_title}}<br>
+                            Due Date: {{item.app_update_date}}
                         </p>
                     </div>
                 </div>
                 <div class="chip-bottom">
                 <!--  <div class="chip-album-title">{{item.album}}</div>-->
-                  <div class="chip-artist">{{item.artist}}</div>
+                  <!--<div class="chip-artist">{{item.artist}}</div>-->
                 </div>
               </div>
 
@@ -137,29 +147,39 @@
       <section id="details">
 
         <div class="card" layout horizontal hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}" hero on-tap="{{transition}}">
-          <div class="card-left" style="background:{{selectedAlbum.color}};" hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}-art" hero>
+          <div class="card-left" style="background:#A9D0F5};" hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}-art" hero>
             <span>
-                <b>Task Title :{{app_tas_title}}</b>
+                <b>Task Title :</b> <br>{{selectedAlbum.app_tas_title}}
             </span>
             <br>
             <span>
-                <b>Process :{{app_pro_title}}</b>
+                <b>Process :</b><br>{{selectedAlbum.app_pro_title}}
             </span>
             <p>
-                Task: {{app_title}}<br>
-                Due Date: {{app_update_date}}
+                Task: {{selectedAlbum.app_title}}<br>
+                Due Date: {{selectedAlbum.app_update_date}}<br>
+                User: {{selectedAlbum.usr_firstname}} {{selectedAlbum.usr_lastname}} 
             </p>
+            <br>
+            <div flex>
+                <paper-button class="colored" raised>Open</paper-button>
+                
+                <paper-button raisedButton label="test" onclick="javascript:alert('f')">dos</paper-button>
+                <paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png"><a href="../../rodri.html?app_uid={{selectedAlbum.app_uid}}">tres</a></paper-button>
+
+
+<paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png" link="http://twitter.com/username">Cuatro</paper-button>
+              </div>
           </div>
-          <div class="card-right" flex>
+          <div class="card-right" flex style="background:#5264ae;">
             <div layout horizontal center>
-              <!--<div>-->
-              <!--  <div class="card-icon" style="background:{{selectedAlbum.color}};">-->
-              <!--      -->
-              <!--  </div>-->
-              <!--</div>-->
-              <div flex>
-                <div class="card-album-title">{{selectedAlbum.album}}</div>
-                <div class="card-album-artist">{{selectedAlbum.artist}}</div>
+              <div>
+                <div class="card-icon" style="background:#fff;">
+                    
+                </div>
+              </div>
+                <div class="card-album-title">{{selectedAlbum.usr_firstname}}</div>
+                <div class="card-album-artist">{{selectedAlbum.usr_lastname}} </div>
               </div>
             </div>
           </div>
@@ -171,29 +191,41 @@
 
   </template>
   <script>
+    var data = [];
+    document.addEventListener('polymer-ready', function() {
 
-    Polymer('cases-partipated', {
-
-      page: 0,
-
-      items: [
-        { artist: 'Tycho Tycho TychoTycho Tycho Tycho Tycho Tycho Tycho Tycho Tycho ', album: 'Fragments', color: '#A9D0F5' },
-        { artist: 'Tycho', album: 'Past Prologue', color: '#972ff8' },
-        { artist: 'Tycho', album: 'Spectre', color: '#7dd6fe' },
-        { artist: 'Tycho', album: 'Awake', color: '#dc3c84' }
-      ],
-
-      selectedAlbum: null,
-
-      transition: function(e) {
-        if (this.page === 0 && e.target.templateInstance.model.item) {
-          this.selectedAlbum = e.target.templateInstance.model.item;
-          this.page = 1;
-        } else {
-          this.page = 0;
+      var ajax = document.querySelector("core-ajax");
+      
+      ajax.addEventListener("core-response", 
+        function(e) {
+            console.log('response', JSON.parse(e.detail.response));
+            
+            //data = JSON.parse(e.detail.response);
+            document.querySelector('template').model = {
+                items: JSON.parse(e.detail.response)
+            };
+            
+            var animated = document.querySelector("cases-partipated");
+            animated.items = JSON.parse(e.detail.response);
         }
-      }
+      );
     });
+    
+    Polymer('cases-partipated', {
+    
+        page: 0,
+        selectedCase: null,
+        transition: function(e) {
+          if (this.page === 0 && e.target.templateInstance.model.item) {
+            this.selectedAlbum = e.target.templateInstance.model.item;
+            this.page = 1;
+          } else {
+            this.page = 0;
+          }
+        }
+      });
+
+    
 
   </script>
   </polymer-element>
