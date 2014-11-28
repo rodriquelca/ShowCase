@@ -76,7 +76,7 @@ POLY.App = (function() {
             att.value = "http://173.244.64.117:8080/api/1.0/workflow/project/72594271153a9c2fb834d95093752124/dynaforms";
             core.setAttributeNode(att);
             var att = document.createAttribute("headers");
-            att.value = '{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}';
+            att.value = '{"Authorization": "Bearer 74375a74a605c8c0186718ae612c6dd538739d3e"}';
             core.setAttributeNode(att);
             //var att = document.createAttribute("params");
             ////att.value = '{"alt":"json", "q":"chrome"}';
@@ -224,7 +224,7 @@ POLY.App = (function() {
             });
             ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/71298561653da7c5f7e0a50031927457/variable';
             //ajax.headers = '{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"},{"Content-Type": "application/json"}]';
-            ajax.headers = '{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}';
+            ajax.headers = '{"Authorization": "Bearer 74375a74a605c8c0186718ae612c6dd538739d3e"}';
             ajax.method = 'PUT'
 
             //var input = document.querySelector('input');
@@ -236,7 +236,7 @@ POLY.App = (function() {
 
 
 
-            ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/71298561653da7c5f7e0a50031927457/route-case';
+            ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/74375a74a605c8c0186718ae612c6dd538739d3e/route-case';
             //ajax.headers = '{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"},{"Content-Type": "application/json"}]';
             //ajax.headers = '{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}';
             ajax.method = 'PUT'
