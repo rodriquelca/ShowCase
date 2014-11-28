@@ -57,4 +57,4 @@
         }
     };
     app.augment("checkGroup", _checkboxgroup, false);
-})(parent.POLY.App);
+})(POLY.App);

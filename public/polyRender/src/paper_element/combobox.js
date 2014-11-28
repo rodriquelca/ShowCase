@@ -51,4 +51,4 @@
         }
     };
     app.augment("combobox", _combobox, false);
-})(parent.POLY.App);
+})(POLY.App);

@@ -4,7 +4,7 @@
     app.augment("config", {
         serverUrl: 'rodrigo.quelca3.pmos.colosa.net',
         siteUrl: '../../site',
-        componentPrefix: 'polyRender/bower_components',
+        componentPrefix: 'bower_components',
         componentsLink: [
             {
                 component: 'paper-input',

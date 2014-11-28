@@ -34,4 +34,4 @@
         }
     };
     app.augment("radioButton", _radio, false);
-})(parent.POLY.App);
+})(POLY.App);

@@ -20,8 +20,8 @@
     <script src="../vendors/lodash.js"></script>
 
     <!--aqui inicializamos la app-->
-    <!--<script src="src/app.js"></script>-->
-    <!--<script src="src/config.js"></script>-->
+    <script src="src/app.js"></script>
+    <script src="src/config.js"></script>
     <script src="src/paper_element/input.js"></script>
     <script src="src/paper_element/radio_button.js"></script>
     <script src="src/paper_element/radio_group.js"></script>
@@ -31,12 +31,12 @@
     <script>
 
 
-        //var app = POLY.App.init({
-            //el: "#container"
-        //});
+        var app = POLY.App.init({
+            el: "#container"
+        });
 
         //combobox
-        parent.POLY.App.combobox.init({
+        POLY.App.combobox.init({
             options:[
                 {
                     label: 'uno'
@@ -48,19 +48,19 @@
         });
 
         //load fields
-        parent.POLY.App.input.init({
+        POLY.App.input.init({
             label: 'Standar',
             floatingLabel: false,
             disabled: false
         });
         //floating
-        parent.POLY.App.input.init({
+        POLY.App.input.init({
             label: 'floating',
             floatingLabel: true,
             disabled: false
         });
         //disabled
-        parent.POLY.App.input.init({
+        POLY.App.input.init({
             label: 'disabled',
             floatingLabel: true,
             disabled: true
@@ -72,7 +72,7 @@
 
 //        radio group
 
-        parent.POLY.App.radioGroup.init({
+        POLY.App.radioGroup.init({
             label: 'Shoes kynd',
             selected: 'adidas',
             name:'kind',
@@ -90,12 +90,12 @@
         });
 
 //        checkbox
-        parent.POLY.App.checkGroup.init({
+        POLY.App.checkGroup.init({
                 label:'hola'
                 });
 
 
-        parent.POLY.App.checkGroup.init({
+        POLY.App.checkGroup.init({
             label:'asdfasdf'
         });
         //        POLY.App.checkbox.init({

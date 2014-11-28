@@ -9,10 +9,7 @@
     <link rel="import" href="../core-ajax/core-ajax.html">
     <link href="../paper-button/paper-button.html" rel="import">
 
-    <!--<script src="../../../vendors/zepto.js"></script>-->
-    <!--<script src="../../../vendors/lodash.js"></script>-->
-    <!--<script src="../../src/app.js"></script>-->
-    <!--<script src="../../src/config.js"></script>-->
+    <script src="../../../vendors/zepto.js"></script>
 
   <style>
     body {
@@ -34,11 +31,12 @@
 <body>
 
   <polymer-element name="cases-partipated">
-  <core-ajax
+    <core-ajax
         id="ajax"
         auto url="//192.168.0.172:9000/api/1.0/workflow/cases/participated"
-        headers='{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"}'>
+        headers='{"Authorization": "Bearer 8f459e91c3c4447599412334b9d44f4d5e9750cf"}'>
     </core-ajax>
+    
   <template>
 
     <style>
@@ -114,6 +112,13 @@
     </style>
     
 
+
+    <section style="padding: 20px">
+        <input id="fieldSearch"is="core-input" placeholder="a single-line input" value="{{value1}}" committedValue="{{committedValue1}}"/>
+        <button label="Accept" onclick="myFunction('{{committedValue1}}')" default class="colored">Search</button>
+        <!--<ouch-button></ouch-button>-->
+    </section>
+
     <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}">
 
       <section>
@@ -167,14 +172,9 @@
             </p>
             <br>
             <div flex>
-                <paper-button class="colored" raised>Open</paper-button>
-                
-                <paper-button raisedButton label="test" onclick="javascript:alert('f')">dos</paper-button>
-                <paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png"><a href="../../rodri.html?app_uid={{selectedAlbum.app_uid}}">tres</a></paper-button>
-
-
-<paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png" link="http://twitter.com/username">Cuatro</paper-button>
-              </div>
+                <paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png"><a href="../../rodri.html?app_uid={{selectedAlbum.app_uid}}">OPEN</a></paper-button>
+                <paper-button class="colored" raised>Cancel</paper-button>
+            </div>
           </div>
           <div class="card-right" flex style="background:#5264ae;">
             <div layout horizontal center>
@@ -196,44 +196,56 @@
 
   </template>
   <script>
-    
     var data = [];
+    var aux = [];
+    var myFunction = function (dat) {
+        var field = $('#fieldSearch').val();
+        aux = [];
+        alert('marcooo');
+        for (var i=0; i<= data.length; i++) {
+            $.each(data[i], function( index, value ) {
+                if (value == field) {
+                    aux.push(data[i]);
+                }
+            });
+        }
+        var animated = document.querySelector("cases-partipated");
+        animated.items = aux;
+    }
+
     document.addEventListener('polymer-ready', function() {
 
       var ajax = document.querySelector("core-ajax");
-      
+      //ajax.headers = '{"Authorization": "Bearer '+parent.POLY.App.token+'"}';
+
       ajax.addEventListener("core-response", 
         function(e) {
-            console.log('response', JSON.parse(e.detail.response));
-            
-            //data = JSON.parse(e.detail.response);
+            //console.log('response', JSON.parse(e.detail.response));
             document.querySelector('template').model = {
                 items: JSON.parse(e.detail.response)
             };
-            
+            data = JSON.parse(e.detail.response);
+
             var animated = document.querySelector("cases-partipated");
             animated.items = JSON.parse(e.detail.response);
         }
       );
     });
-    
+
     Polymer('cases-partipated', {
-    
+
         page: 0,
         selectedAlbum: null,
         transition: function(e) {
           if (this.page === 0 && e.target.templateInstance.model.item) {
             this.selectedAlbum = e.target.templateInstance.model.item;
-            parent.POLY.App.setAppUid('marcooo');
+            //parent.POLY.App.setAppUid(this.selectedAlbum.app_uid);
             this.page = 1;
           } else {
             this.page = 0;
           }
         }
       });
-
-    
-
   </script>
   </polymer-element>
 

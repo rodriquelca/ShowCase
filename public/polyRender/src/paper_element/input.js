@@ -32,4 +32,4 @@
         }
     };
     app.augment("input", _input, false);
-})(parent.POLY.App);
+})(POLY.App);

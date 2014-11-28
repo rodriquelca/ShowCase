@@ -65,4 +65,4 @@
         }
     };
     app.augment("checkbox", _checkbox, false);
-})(parent.POLY.App);
+})(POLY.App);

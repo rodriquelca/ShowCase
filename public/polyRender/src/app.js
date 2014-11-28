@@ -5,7 +5,6 @@ var POLY = POLY || {};
 
 POLY.App = (function() {
     var _app,
-        app_uid,
         _modules = {};
     var _make$ = function(selector) {
         return selector instanceof $ ? selector : $(selector);
@@ -63,9 +62,6 @@ POLY.App = (function() {
             console.log('init poly app');
 
         },
-        setAppUid : function (app_uid) {
-            this.app_uid = app_uid;
-        },
 
         augment: function(name, obj, init) {
             this[name] = obj;
@@ -77,15 +73,17 @@ POLY.App = (function() {
         },
 
         addImportLink: function(url) {
-            var link = document.createElement('link');
+            var a = window.frames;
+            var link = a.document.createElement('link');
             link.rel = 'import';
             link.href = url;
-            //link.onload = function(e) {
-            //    var post = this.import.querySelector('#blog-post');
-            //
-            //    var container = document.querySelector('#container');
-            //    container.appendChild(post.cloneNode(true));
-            //};
+            link.onload = function(e) {
+                var post = this.import.querySelector('#blog-post');
+                if (post != null) {
+                    var container = a.document.querySelector('#container');
+                    container.appendChild(post.cloneNode(true));
+                }
+            };
             document.head.appendChild(link);
         },
         /**
