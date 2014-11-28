@@ -8,6 +8,7 @@
 
     <link rel="import" href="../core-ajax/core-ajax.html">
     <link href="../paper-button/paper-button.html" rel="import">
+    <link href="../paper-input/paper-input.html" rel="import">
 
     <script src="../../../vendors/zepto.js"></script>
 
@@ -34,7 +35,7 @@
     <core-ajax
         id="ajax"
         auto url="//192.168.0.172:9000/api/1.0/workflow/cases/participated"
-        headers='{"Authorization": "Bearer 8f459e91c3c4447599412334b9d44f4d5e9750cf"}'>
+        headers='{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}'>
     </core-ajax>
     
   <template>
@@ -113,11 +114,16 @@
     
 
 
-    <section style="padding: 20px">
-        <input id="fieldSearch"is="core-input" placeholder="a single-line input" value="{{value1}}" committedValue="{{committedValue1}}"/>
+    <div style="padding: 20px">
+        <!--<input id="fieldSearch" placeholder="a single-line input" >-->
+        <!--<core-input is="core-input" placeholder="a single-line input" ></core-input>-->
+        <!--<paper-input-decorator label="with core-input">-->
+        <!--    <input is="core-input">-->
+        <!--</paper-input-decorator>-->
+        <paper-input id="dialog-add-note-header" label="Header" value="{{valHeader}}"></paper-input>
         <button label="Accept" onclick="myFunction('{{committedValue1}}')" default class="colored">Search</button>
         <!--<ouch-button></ouch-button>-->
-    </section>
+    </div>
 
     <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}">
 
@@ -172,7 +178,7 @@
             </p>
             <br>
             <div flex>
-                <paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png"><a href="../../rodri.html?app_uid={{selectedAlbum.app_uid}}">OPEN</a></paper-button>
+                <paper-button raisedButton class="colored"><a href="../../rodri.html?app_uid={{selectedAlbum.app_uid}}">OPEN</a></paper-button>
                 <paper-button class="colored" raised>Cancel</paper-button>
             </div>
           </div>
@@ -198,11 +204,13 @@
   <script>
     var data = [];
     var aux = [];
+
+
     var myFunction = function (dat) {
-        var field = $('#fieldSearch').val();
+        var field = document.querySelector("paper-input");
+        field = '151';
         aux = [];
-        alert('marcooo');
-        for (var i=0; i<= data.length; i++) {
+        for (var i=0; i< data.length; i++) {
             $.each(data[i], function( index, value ) {
                 if (value == field) {
                     aux.push(data[i]);

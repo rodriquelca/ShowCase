@@ -1,119 +1,266 @@
-
 <!doctype html>
-
 <html>
 <head>
-
     <title>List Cases Draft</title>
 
     <script src="../webcomponentsjs/webcomponents.js"></script>
-    <link rel="import" href="../core-ajax/core-ajax.html">
-        
-    <link rel="import" href="../ujiro-card-master/ujiro-card.html"/>
-    <link href="../paper-button/paper-button.html" rel="import">
+    <link href="../core-animated-pages/core-animated-pages.html" rel="import">
 
+    <link rel="import" href="../core-ajax/core-ajax.html">
+    <link href="../paper-button/paper-button.html" rel="import">
+    <link href="../paper-input/paper-input.html" rel="import">
+
+    <script src="../../../vendors/zepto.js"></script>
+
+  <style>
+    body {
+      font-family: 'Roboto 2', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      background: #f1f1f1;
+    }
+
+    .green {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 350px;
+      background: #70c26f;
+    }
+  </style>
 </head>
 <body>
-    <style>
-        ujiro-card {
-          margin: 4px;
-          width: 200px;
-        }
-        .content {
-          background-color: #eeeeee;
-          padding: 20px;
-          font-family: 'RobotoDraft', sans-serif;
-          font-weight: 300;
-          color: #555;
-        }
-        .media {
-          line-height: 0;
-        }
-        .media img {
-          height: auto;
-          width: 200px;
-        }
-        .text {
-          padding: 16px;
-          font-size: 13px;
-        }
-        ujiro-card:first-child > .text {
-          font-size: 12px;
-        }
-        span {
-          font-weight: 400;
-          color: #999;
-        }
-        p {
-          margin: 0.2em 0 0 0;
-        }
-        footer {
-          margin-top: 20px;
-        }
-        footer > div {
-          display: inline-block;
-          font-weight: 400;
-        }
-        .share {
-          color: blue;
-        }
-        .more {
-          color: #999;
-          margin-left: 10px;
-        }
-        header {
-          margin: -72px 0 24px 0;
-        }
-        header h2 {
-          color: #ededed;
-          font-size: 24px;
-          line-height: 26px;
-          font-weight: 300;
-        }
-      </style>
+
+  <polymer-element name="cases-draft">
     <core-ajax
         id="ajax"
         auto url="//192.168.0.172:9000/api/1.0/workflow/cases/draft"
-        headers='{"Authorization": "Bearer 8f459e91c3c4447599412334b9d44f4d5e9750cf"}'>
+        headers='{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}'>
     </core-ajax>
+    
+  <template>
 
-    <template repeat="{{response}}">
-        <ujiro-card>
-            <div class="text">
-                <span>
-                    <b>Task Title :{{app_tas_title}}</b>
-                </span>
-                <br>
-                <span>
-                    <b>Process :{{app_pro_title}}</b>
-                </span>
-                <p>
-                    Task: {{app_title}}<br>
-                    Due Date: {{app_update_date}}
-                </p>
-                <footer>
-                    <paper-button class="share" raised class="colored">Open</paper-button>
-                    <paper-button class="more" raised class="colored">View</paper-button>
-                </footer>
+    <style>
+      .chip-container {
+        position: absolute;
+        top: 20px;
+        right: 0;
+        left: 0;
+        text-align: center;
+      }
+
+      .chip {
+        display: inline-block;
+        position: relative;
+        border-radius: 3px;
+        margin: 4px;
+        overflow: hidden;
+        text-align: start;
+        background-color: #fff;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+      }
+
+      .chip-top {
+        width: 200px;
+        height: 200px;
+      }
+
+      .chip-bottom {
+        padding: 8px;
+        line-height: 1.5;
+      }
+
+      .chip-album-title {
+        font-weight: bold;
+      }
+
+      #details {
+        padding: 50px 10% 0;
+      }
+
+      .card {
+        height: 400px;
+        border-radius: 3px;
+        text-align: start;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      .card-left {
+        width: 400px;
+        padding: 20px;
+      }
+
+      .card-right {
+        padding: 24px;
+      }
+
+      .card-icon {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        margin-right: 16px;
+      }
+
+      .card-album-title {
+        font-size: 2em;
+      }
+      .text {
+              padding: 16px;
+              font-size: 13px;
+            }
+    </style>
+    
+
+
+    <section style="padding: 20px">
+        <!--<input id="fieldSearch" placeholder="a single-line input" >-->
+        <!--<core-input is="core-input" placeholder="a single-line input" ></core-input>-->
+        <!--<paper-input-decorator label="with core-input">-->
+        <!--    <input is="core-input">-->
+        <!--</paper-input-decorator>-->
+        <paper-input id="dialog-add-note-header" label="Header" value="{{valHeader}}"></paper-input>
+        <button label="Accept" onclick="myFunction('{{committedValue1}}')" default class="colored">Search</button>
+        <!--<ouch-button></ouch-button>-->
+    </section>
+
+    <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}">
+
+      <section>
+
+        <div class="chip-container" hero-p on-tap="{{transition}}">
+
+          <template repeat="{{items as item}}">
+
+            <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{selectedAlbum === item }}">
+                <div class="chip-top" style="background:#E0ECF8;" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{selectedAlbum === item}}">
+                    <div class="text">
+                        <span>
+                            <b>Task Title :{{item.app_tas_title}}</b>
+                        </span>
+                        <br>
+                        <span>
+                            <b>Process :{{item.app_pro_title}}</b>
+                        </span>
+                        <p>
+                            Task: {{item.app_title}}<br>
+                            Due Date: {{item.app_update_date}}
+                        </p>
+                    </div>
+                </div>
+                <div class="chip-bottom">
+                <!--  <div class="chip-album-title">{{item.album}}</div>-->
+                  <!--<div class="chip-artist">{{item.artist}}</div>-->
+                </div>
+              </div>
+
+          </template>
+
+        </div>
+      </section>
+
+      <section id="details">
+
+        <div class="card" layout horizontal hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}" hero on-tap="{{transition}}">
+          <div class="card-left" style="background:#A9D0F5};" hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}-art" hero>
+            <span>
+                <b>Task Title :</b> <br>{{selectedAlbum.app_tas_title}}
+            </span>
+            <br>
+            <span>
+                <b>Process :</b><br>{{selectedAlbum.app_pro_title}}
+            </span>
+            <p>
+                Task: {{selectedAlbum.app_title}}<br>
+                Due Date: {{selectedAlbum.app_update_date}}<br>
+                User: {{selectedAlbum.usr_firstname}} {{selectedAlbum.usr_lastname}} 
+            </p>
+            <br>
+            <div flex>
+                <paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png"><a href="../../rodri.html?app_uid={{selectedAlbum.app_uid}}">OPEN</a></paper-button>
+                <paper-button class="colored" raised>Cancel</paper-button>
             </div>
-        </ujiro-card>
-  </template>
+          </div>
+          <div class="card-right" flex style="background:#5264ae;">
+            <div layout horizontal center>
+              <div>
+                <div class="card-icon" style="background:#fff;">
+                    
+                </div>
+              </div>
+                <div class="card-album-title">{{selectedAlbum.usr_firstname}}</div>
+                <div class="card-album-artist">{{selectedAlbum.usr_lastname}} </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
+      </section>
+
+    </core-animated-pages>
+
+  </template>
   <script>
+    var data = [];
+    var aux = [];
+    Polymer("app-input", {
+    valueChanged: function() {
+        console.log("valueChanged");
+        console.log(this.value);
+    }
+});
+    var myFunction = function (dat) {
+        var field = document.querySelector("paper-input");
+        field = '151';
+        aux = [];
+        for (var i=0; i< data.length; i++) {
+            $.each(data[i], function( index, value ) {
+                if (value == field) {
+                    aux.push(data[i]);
+                }
+            });
+        }
+        var animated = document.querySelector("cases-partipated");
+        animated.items = aux;
+    }
+
     document.addEventListener('polymer-ready', function() {
 
       var ajax = document.querySelector("core-ajax");
-      
+      //ajax.headers = '{"Authorization": "Bearer '+parent.POLY.App.token+'"}';
+
       ajax.addEventListener("core-response", 
         function(e) {
-            console.log('response', JSON.parse(e.detail.response));
+            //console.log('response', JSON.parse(e.detail.response));
             document.querySelector('template').model = {
-                response: JSON.parse(e.detail.response)
+                items: JSON.parse(e.detail.response)
             };
+            data = JSON.parse(e.detail.response);
+
+            var animated = document.querySelector("cases-draft");
+            animated.items = JSON.parse(e.detail.response);
         }
       );
     });
-  </script>
 
+    Polymer('cases-draft', {
+
+        page: 0,
+        selectedAlbum: null,
+        transition: function(e) {
+          if (this.page === 0 && e.target.templateInstance.model.item) {
+            this.selectedAlbum = e.target.templateInstance.model.item;
+            //parent.POLY.App.setAppUid(this.selectedAlbum.app_uid);
+            this.page = 1;
+          } else {
+            this.page = 0;
+          }
+        }
+      });
+  </script>
+  </polymer-element>
+
+  <cases-draft></cases-draft>
 </body>
 </html>

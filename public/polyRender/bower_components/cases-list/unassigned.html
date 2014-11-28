@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>List Cases inbox</title>
+    <title>List Cases unassigned</title>
 
     <script src="../webcomponentsjs/webcomponents.js"></script>
     <link href="../core-animated-pages/core-animated-pages.html" rel="import">
@@ -31,10 +31,10 @@
 </head>
 <body>
 
-  <polymer-element name="cases-inbox">
+  <polymer-element name="cases-partipated">
     <core-ajax
         id="ajax"
-        auto url="//192.168.0.172:9000/api/1.0/workflow/cases"
+        auto url="//192.168.0.172:9000/api/1.0/workflow/cases/unassigned"
         headers='{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}'>
     </core-ajax>
     
@@ -204,12 +204,7 @@
   <script>
     var data = [];
     var aux = [];
-    Polymer("app-input", {
-    valueChanged: function() {
-        console.log("valueChanged");
-        console.log(this.value);
-    }
-});
+
     var myFunction = function (dat) {
         var field = document.querySelector("paper-input");
         field = '151';
@@ -238,13 +233,13 @@
             };
             data = JSON.parse(e.detail.response);
 
-            var animated = document.querySelector("cases-inbox");
+            var animated = document.querySelector("cases-partipated");
             animated.items = JSON.parse(e.detail.response);
         }
       );
     });
 
-    Polymer('cases-inbox', {
+    Polymer('cases-partipated', {
 
         page: 0,
         selectedAlbum: null,
@@ -261,6 +256,6 @@
   </script>
   </polymer-element>
 
-  <cases-inbox></cases-inbox>
+  <cases-partipated></cases-partipated>
 </body>
 </html>

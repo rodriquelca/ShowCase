@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>List Cases inbox</title>
+    <title>List New Cases</title>
 
     <script src="../webcomponentsjs/webcomponents.js"></script>
     <link href="../core-animated-pages/core-animated-pages.html" rel="import">
@@ -31,11 +31,11 @@
 </head>
 <body>
 
-  <polymer-element name="cases-inbox">
+  <polymer-element name="cases-new">
     <core-ajax
         id="ajax"
-        auto url="//192.168.0.172:9000/api/1.0/workflow/cases"
-        headers='{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}'>
+        auto url="//192.168.0.172:9000/api/1.0/workflow/project/29720802653a2e6182c3b33066604068/starting-tasks"
+        headers='{"Authorization": "Bearer 317ef32f2a58818215022f2800d00e7dbdc9e578"}'>
     </core-ajax>
     
   <template>
@@ -137,16 +137,16 @@
                 <div class="chip-top" style="background:#E0ECF8;" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{selectedAlbum === item}}">
                     <div class="text">
                         <span>
-                            <b>Task Title :{{item.app_tas_title}}</b>
+                            <b>Task Title :{{item.act_name}}</b>
                         </span>
                         <br>
-                        <span>
-                            <b>Process :{{item.app_pro_title}}</b>
-                        </span>
-                        <p>
-                            Task: {{item.app_title}}<br>
-                            Due Date: {{item.app_update_date}}
-                        </p>
+                        <!--<span>-->
+                            <!--<b>Process :{{item.app_pro_title}}</b>-->
+                        <!--</span>-->
+                        <!--<p>-->
+                            <!--Task: {{item.app_title}}<br>-->
+                            <!--Due Date: {{item.app_update_date}}-->
+                        <!--</p>-->
                     </div>
                 </div>
                 <div class="chip-bottom">
@@ -165,17 +165,17 @@
         <div class="card" layout horizontal hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}" hero on-tap="{{transition}}">
           <div class="card-left" style="background:#A9D0F5};" hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}-art" hero>
             <span>
-                <b>Task Title :</b> <br>{{selectedAlbum.app_tas_title}}
+                <b>Task Title :</b> <br>{{selectedAlbum.act_name}}
             </span>
-            <br>
-            <span>
-                <b>Process :</b><br>{{selectedAlbum.app_pro_title}}
-            </span>
-            <p>
-                Task: {{selectedAlbum.app_title}}<br>
-                Due Date: {{selectedAlbum.app_update_date}}<br>
-                User: {{selectedAlbum.usr_firstname}} {{selectedAlbum.usr_lastname}} 
-            </p>
+            <!--<br>-->
+            <!--<span>-->
+                <!--<b>Process :</b><br>{{selectedAlbum.app_pro_title}}-->
+            <!--</span>-->
+            <!--<p>-->
+                <!--Task: {{selectedAlbum.app_title}}<br>-->
+                <!--Due Date: {{selectedAlbum.app_update_date}}<br>-->
+                <!--User: {{selectedAlbum.usr_firstname}} {{selectedAlbum.usr_lastname}} -->
+            <!--</p>-->
             <br>
             <div flex>
                 <paper-button raisedButton class="colored" iconSrc="http://g.twimg.com/Twitter_logo_white.png"><a href="../../rodri.html?app_uid={{selectedAlbum.app_uid}}">OPEN</a></paper-button>
@@ -211,17 +211,18 @@
     }
 });
     var myFunction = function (dat) {
-        var field = document.querySelector("paper-input");
-        field = '151';
+        var dat = this.valHeader;
+        var field = $('#fieldSearch').val();
         aux = [];
-        for (var i=0; i< data.length; i++) {
+        alert('marcooo');
+        for (var i=0; i<= data.length; i++) {
             $.each(data[i], function( index, value ) {
                 if (value == field) {
                     aux.push(data[i]);
                 }
             });
         }
-        var animated = document.querySelector("cases-partipated");
+        var animated = document.querySelector("cases-new");
         animated.items = aux;
     }
 
@@ -238,13 +239,13 @@
             };
             data = JSON.parse(e.detail.response);
 
-            var animated = document.querySelector("cases-inbox");
+            var animated = document.querySelector("cases-new");
             animated.items = JSON.parse(e.detail.response);
         }
       );
     });
 
-    Polymer('cases-inbox', {
+    Polymer('cases-new', {
 
         page: 0,
         selectedAlbum: null,
@@ -261,6 +262,6 @@
   </script>
   </polymer-element>
 
-  <cases-inbox></cases-inbox>
+  <cases-new></cases-new>
 </body>
 </html>
