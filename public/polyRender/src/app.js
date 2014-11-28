@@ -100,15 +100,17 @@ POLY.App = (function() {
         },
 
         addImportLink: function(url) {
-            var link = document.createElement('link');
+            var a = window.frames;
+            var link = a.document.createElement('link');
             link.rel = 'import';
             link.href = url;
-            //link.onload = function(e) {
-            //    var post = this.import.querySelector('#blog-post');
-            //
-            //    var container = document.querySelector('#container');
-            //    container.appendChild(post.cloneNode(true));
-            //};
+            link.onload = function(e) {
+                var post = this.import.querySelector('#blog-post');
+                if (post != null) {
+                    var container = a.document.querySelector('#container');
+                    container.appendChild(post.cloneNode(true));
+                }
+            };
             document.head.appendChild(link);
 
         },
