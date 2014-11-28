@@ -10,9 +10,9 @@
 </head>
 <body>
 <link rel="import" href="bower_components/polymer/polymer.html">
-    <h1>Poly (Form Render)</h1>
+    <h1>Case Detail</h1>
     <!--aqui se armara el formulario-->
-    formulario básico
+    <!--formulario básico-->
     <br/>
     <form onsubmit="return validate(this)" action="/test">
 
@@ -22,10 +22,10 @@
             <!--handleAs="json"></core-ajax>-->
 
         </div>
-        <input type="submit">
+        <!--<input type="submit">-->
     </form>
 
-    <link-button></link-button>
+    <!--<link-button></link-button>-->
 
 
 
@@ -50,11 +50,11 @@
         var app = POLY.App.init({
             el: "#container"
         });
-        function validate(form) {
-            console.log(form.doisubmit.validity.valid);
-            // This should return false if <input is="test-element"> contains alpha chars. It always returns true.
-//            return form.doisubmit.validity.valid;
-        }
+//        function validate(form) {
+//            console.log(form.doisubmit.validity.valid);
+//            // This should return false if <input is="test-element"> contains alpha chars. It always returns true.
+////            return form.doisubmit.validity.valid;
+//        }
 //        //combobox
 //        POLY.App.combobox.init({
 //            options:[
@@ -68,17 +68,17 @@
 //        });
 
         //load fields
-        POLY.App.input.init({
-            name: 'firstName',
-            label: 'Standar',
-            floatingLabel: false,
-            disabled: false
-        });
-        POLY.App.button.init({
-            label: 'Submit',
-            'callback': 'POLY.App.submit(this)'
+//        POLY.App.input.init({
+//            name: 'firstName',
+//            label: 'Standar',
+//            floatingLabel: false,
 //            disabled: false
-        });
+//        });
+//        POLY.App.button.init({
+//            label: 'Submit',
+//            'callback': 'POLY.App.submit(this)'
+////            disabled: false
+//        });
 //        //floating
 //        POLY.App.input.init({
 //            label: 'floating',

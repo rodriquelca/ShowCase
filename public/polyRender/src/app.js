@@ -71,21 +71,104 @@ POLY.App = (function() {
             var att = document.createAttribute("auto");
             core.setAttributeNode(att);
             var att = document.createAttribute("url");
-            att.value = "//gdata.youtube.com/feeds/api/videos/";
+            //att.value = "//gdata.youtube.com/feeds/api/videos/";
+            //att.value = "http://192.168.11.172:9000/api/1.0/workflow/project/72594271153a9c2fb834d95093752124/dynaforms";
+            att.value = "http://173.244.64.117:8080/api/1.0/workflow/project/72594271153a9c2fb834d95093752124/dynaforms";
             core.setAttributeNode(att);
-
-            var att = document.createAttribute("params");
-            att.value = '{"alt":"json", "q":"chrome"}';
+            var att = document.createAttribute("headers");
+            att.value = '{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}';
             core.setAttributeNode(att);
+            //var att = document.createAttribute("params");
+            ////att.value = '{"alt":"json", "q":"chrome"}';
+            //core.setAttributeNode(att);
 
             var att = document.createAttribute("on-core-response");
             att.value = '{{handleResponse}}';
             core.setAttributeNode(att);
 
-            //var att = document.createAttribute("headers");
-            //att.value = '{"X-Requested-With": "XMLHttpRequest"} ';
-            //core.setAttributeNode(att);
+            document.addEventListener('polymer-ready', function() {
+                var ajax = document.querySelector('core-ajax');
+                ajax.addEventListener('core-response', function(e) {
+                    //console.log(e.detail.response);
+                    //// or
+                    //console.log(e.target.response);
+                    // or
+                    console.log(ajax.response);
+                    response = JSON.parse(ajax.response);
+                    console.log(response[0]);
+                    fields = response[0];
 
+                        _app.input.init({
+                                name: 'firstName',
+                            label: 'Nick Name',
+                            floatingLabel: false,
+                            disabled: false
+                        });
+
+                    //simple radio button
+//        POLY.App.radioButton.init({
+//        });
+
+//        radio group
+
+        POLY.App.radioGroup.init({
+            label: 'Genre',
+            selected: 'adidas',
+            name:'kind',
+            options: [
+                {
+                    label: 'Female',
+                    name: 'female'
+
+                },
+                {
+                    label: 'Male',
+                    name: 'male'
+                }
+            ]
+        });
+
+//        checkbox
+        POLY.App.checkGroup.init({
+                label:'News Letter',
+                options: [
+                    {
+                        label: 'Sports',
+                        name: 'sport'
+                    },
+                    {
+                        label: 'Cars',
+                        name: 'cars'
+                    }
+                ]
+                });
+
+
+        //POLY.App.checkGroup.init({
+        //    label:'asdfasdf'
+        //});
+                POLY.App.checkbox.init({
+
+                });
+                });
+            });
+
+            POLY.App.button.init({
+                label: 'Submit',
+                'callback': 'POLY.App.submit(this)'
+//            disabled: false
+            });
+            POLY.App.combobox.init({
+                label: 'City',
+            options:[
+                {
+                    label: 'La Paz'
+                },
+                {
+                    label: 'Oruro'
+                }
+            ]
+        });
             container.appendChild(core);
 
         },
@@ -133,14 +216,23 @@ POLY.App = (function() {
             //console.log(obj);
             //console.log(ajax);
             var form = document.getElementById('container');
-            console.log(form.children);
+            console.log(form.children[3].firstElementChild)
+            console.log(form.children[3].firstElementChild.value);
             // Respond to events it fires.
             ajax.addEventListener('core-response', function(e) {
-                console.log(this.response);
+                //console.log(this.response[3]);
             });
-            ajax.url = 'face';
+            ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/45453661154183e8e0126a0074487527/variable';
+            //ajax.headers = '{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"},{"Content-Type": "application/json"}]';
+            ajax.headers = '{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}';
+            ajax.method = 'PUT'
 
+            //var input = document.querySelector('input');
+            //console.log(input.value);
+            ajax.params = '{"FIELD_NICK": "asdfasdfasd"}'
+            ajax.params = '{"FIELD_NICK": "'+ form.children[3].firstElementChild.value +'"}'
             ajax.go(); // Call its API methods.
+            //window.location = "/";
         }
     };
 }());
