@@ -222,9 +222,11 @@ POLY.App = (function() {
             ajax.addEventListener('core-response', function(e) {
                 //console.log(this.response[3]);
             });
+            console.log('APP_UID', window.location.href);
+
             ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/71298561653da7c5f7e0a50031927457/variable';
             //ajax.headers = '{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"},{"Content-Type": "application/json"}]';
-            ajax.headers = '{"Authorization": "Bearer 74375a74a605c8c0186718ae612c6dd538739d3e"}';
+            ajax.headers = '{"Authorization": "Bearer f62dbc57a37640176d59636ba42757e2382ddfb0"}';
             ajax.method = 'PUT'
 
             //var input = document.querySelector('input');
