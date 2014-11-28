@@ -5,7 +5,7 @@ var OAUTHURL    =   'https://accounts.google.com/o/oauth2/auth?';
 var VALIDURL    =   'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
 var SCOPE       =   'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
 var CLIENTID    =   '286733531718-83lkc2890i5h40k9bmfglttm8m4f6frb.apps.googleusercontent.com';
-var REDIRECT    =   'http://localhost:9000/';
+var REDIRECT    =   'http://www.cursosclic.webatu.com/oauth.php';
 var LOGOUT      =   'http://accounts.google.com/Logout';
 var TYPE        =   'token';
 var _url        =   OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;

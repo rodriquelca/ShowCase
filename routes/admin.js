@@ -73,4 +73,23 @@ router.post('/test', function(req, res) {
     });
 });
 
+router.get('/google', function(req, res) {
+    console.log(req);
+
+    //db.collection('oauth').update({_id: new ObjectID(req.body.id)}, {$set:result}, {safe:true, multi:false},
+    //    function(err, result){
+    //
+    //    }
+    //);
+    //db.collection('oauth').findOne({_id:new ObjectID(req.body.id)}, function(err, result) {
+    //    //console.log('Band members of Road Crew');
+    //    if (err) {
+    //        res.send(err);
+    //    }
+    //
+    //
+    //    res.send();
+    //});
+});
+
 module.exports = router;
