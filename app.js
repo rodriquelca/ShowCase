@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+//var users = require('./routes/users');
 var admin = require('./routes/admin');
 var api = require('./routes/api');
+var google = require('./routes/google');
 
 var mongo = require('mongoskin');
 var db = mongo.db('mongodb://localhost:27017/showcase');
@@ -19,6 +20,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 // view engine setup
+app.set('public', path.join(__dirname, 'public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -64,9 +66,10 @@ app.use('/', function(req, res, next) {
 });
 
 app.use('/', routes);
-app.use('/users', users);
+//app.use('/users', users);
 app.use('/admin', admin);
 app.use('/api/1.0', api);
+app.use('/google', google);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
