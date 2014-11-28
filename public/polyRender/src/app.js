@@ -230,8 +230,14 @@ POLY.App = (function() {
             //var input = document.querySelector('input');
             //console.log(input.value);
             ajax.params = '{"FIELD_NICK": "asdfasdfasd"}'
-            ajax.params = '{"FIELD_NICK": "'+ form.children[3].firstElementChild.value +'"}'
+            ajax.params = '{"FullName": "'+ form.children[3].firstElementChild.value +'"}'
             ajax.go(); // Call its API methods.
+
+
+
+            
+
+
             //window.location = "/";
         }
     };
