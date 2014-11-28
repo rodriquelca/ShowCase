@@ -95,7 +95,7 @@ POLY.App = (function() {
                     // or
                     console.log(ajax.response);
                     response = JSON.parse(ajax.response);
-                    console.log(response[0]);
+                    //console.log(response[0]);
                     fields = response[0];
 
                         _app.input.init({
@@ -222,7 +222,7 @@ POLY.App = (function() {
             ajax.addEventListener('core-response', function(e) {
                 //console.log(this.response[3]);
             });
-            ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/45453661154183e8e0126a0074487527/variable';
+            ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/71298561653da7c5f7e0a50031927457/variable';
             //ajax.headers = '{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"},{"Content-Type": "application/json"}]';
             ajax.headers = '{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}';
             ajax.method = 'PUT'
@@ -235,7 +235,17 @@ POLY.App = (function() {
 
 
 
-            
+
+            ajax.url = 'http://192.168.0.172:9000/api/1.0/workflow/cases/71298561653da7c5f7e0a50031927457/route-case';
+            //ajax.headers = '{"Authorization": "Bearer a178c40f6df7fa7d187615562449ea5ccf55a46a"},{"Content-Type": "application/json"}]';
+            //ajax.headers = '{"Authorization": "Bearer 41ff37992b5c267a4efe8c1e826e3c1f66f9247f"}';
+            ajax.method = 'PUT'
+
+            //var input = document.querySelector('input');
+            //console.log(input.value);
+            //ajax.params = '{"FIELD_NICK": "asdfasdfasd"}'
+            //ajax.params = '{"FullName": "'+ form.children[3].firstElementChild.value +'"}'
+
 
 
             //window.location = "/";
